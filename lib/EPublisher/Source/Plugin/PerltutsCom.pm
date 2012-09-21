@@ -18,7 +18,7 @@ use EPublisher::Source::Base;
 
 our @ISA = qw( EPublisher::Source::Base );
 
-our $VERSION = 0.1;
+our $VERSION = 0.2;
 
 # implementing the interface to EPublisher::Source::Base
 sub load_source{
@@ -51,7 +51,7 @@ sub load_source{
 
     # perltuts.com always provides utf-8 encoded data, so we have
     # to decode it otherwise the target plugins may produce garbage
-    $pod = decode( 'utf-8', $pod );
+    eval{ $pod = decode( 'utf-8', $pod ); };
 
     my $title    = $name;
     my $info = { pod => $pod, filename => $name, title => $title };
