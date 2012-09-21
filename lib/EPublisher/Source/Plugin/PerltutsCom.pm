@@ -1,5 +1,9 @@
 package EPublisher::Source::Plugin::PerltutsCom;
 
+=encoding utf-8
+
+=cut
+
 # ABSTRACT: Get POD from tutorials published on perltuts.com
 
 use strict;
@@ -11,11 +15,10 @@ use File::Basename;
 use LWP::Simple;
 
 use EPublisher::Source::Base;
-use EPublisher::Utils::PPI qw(extract_pod_from_code);
 
 our @ISA = qw( EPublisher::Source::Base );
 
-our $VERSION = 0.20;
+our $VERSION = 0.1;
 
 # implementing the interface to EPublisher::Source::Base
 sub load_source{
@@ -70,7 +73,6 @@ sub load_source{
         . "pod => $pod"
     );
 
-    # voilà
     return @pod;
 }
 
