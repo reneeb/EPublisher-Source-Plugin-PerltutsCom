@@ -18,7 +18,7 @@ use EPublisher::Source::Base;
 
 our @ISA = qw( EPublisher::Source::Base );
 
-our $VERSION = 0.2;
+our $VERSION = 0.3;
 
 # implementing the interface to EPublisher::Source::Base
 sub load_source{
@@ -70,7 +70,7 @@ sub load_source{
         "103: passed info: "
         . "filename => $name, "
         . "title => $title, "
-        . "pod => $pod"
+        . 'pod => ' . substr($pod, 0, 30) . '<<<<CUT<<<<'
     );
 
     return @pod;
