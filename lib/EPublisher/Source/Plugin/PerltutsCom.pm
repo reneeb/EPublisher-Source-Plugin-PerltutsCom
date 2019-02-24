@@ -18,7 +18,7 @@ use parent qw( EPublisher::Source::Base );
 
 has ua => ( is => 'ro', default => sub { HTTP::Tiny->new } );
 
-our $VERSION = 0.3;
+our $VERSION = '0.4';
 
 # implementing the interface to EPublisher::Source::Base
 sub load_source{
@@ -44,9 +44,6 @@ sub _get_pod {
     my $response = $self->ua->get(
         'http://perltuts.com/tutorials/' . $name . '?format=pod'
     );
-
-use Data::Dumper;
-print STDERR Dumper( $response );
 
     if ( $response !~ m{\A2} ) {
         $self->publisher->debug(
