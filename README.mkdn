@@ -1,0 +1,87 @@
+[![Build Status](https://travis-ci.org/reneeb/EPublisher-Source-Plugin-PerltutsCom.svg?branch=master)](https://travis-ci.org/reneeb/EPublisher-Source-Plugin-PerltutsCom)
+[![Kwalitee status](http://cpants.cpanauthors.org/dist/EPublisher-Source-Plugin-PerltutsCom.png)](http://cpants.charsbar.org/dist/overview/EPublisher-Source-Plugin-PerltutsCom)
+[![GitHub issues](https://img.shields.io/github/issues/reneeb/EPublisher-Source-Plugin-PerltutsCom.svg)](https://github.com/reneeb/EPublisher-Source-Plugin-PerltutsCom/issues)
+
+# NAME
+
+EPublisher::Source::Plugin::PerltutsCom - Get POD from tutorials published on perltuts.com
+
+# VERSION
+
+version 0.3
+
+# SYNOPSIS
+
+    my $source_options = { type => 'PerltutsCom', name => 'Moose' };
+    my $url_source     = EPublisher::Source->new( $source_options );
+    my $pod            = $url_source->load_source;
+
+# ATTRIBUTES
+
+- ua
+
+# METHODS
+
+## load\_source
+
+    $url_source->load_source;
+
+reads the URL 
+
+
+
+# Development
+
+The distribution is contained in a Git repository, so simply clone the
+repository
+
+```
+$ git clone git://github.com/reneeb/EPublisher-Source-Plugin-PerltutsCom.git
+```
+
+and change into the newly-created directory.
+
+```
+$ cd EPublisher-Source-Plugin-PerltutsCom
+```
+
+The project uses [`Dist::Zilla`](https://metacpan.org/pod/Dist::Zilla) to
+build the distribution, hence this will need to be installed before
+continuing:
+
+```
+$ cpanm Dist::Zilla
+```
+
+To install the required prequisite packages, run the following set of
+commands:
+
+```
+$ dzil authordeps --missing | cpanm
+$ dzil listdeps --author --missing | cpanm
+```
+
+The distribution can be tested like so:
+
+```
+$ dzil test
+```
+
+To run the full set of tests (including author and release-process tests),
+add the `--author` and `--release` options:
+
+```
+$ dzil test --author --release
+```
+
+# AUTHOR
+
+Renee Baecker <module@renee-baecker.de>
+
+# COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Renee Bäcker.
+
+This is free software, licensed under:
+
+    The Artistic License 2.0 (GPL Compatible)
