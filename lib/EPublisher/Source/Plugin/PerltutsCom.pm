@@ -9,14 +9,14 @@ package EPublisher::Source::Plugin::PerltutsCom;
 use strict;
 use warnings;
 
-use Data::Dumper;
+use Moo;
 use Encode;
 use File::Basename;
-use LWP::Simple;
+use HTTP::Tiny;
 
-use EPublisher::Source::Base;
+use parent qw( EPublisher::Source::Base );
 
-our @ISA = qw( EPublisher::Source::Base );
+has ua => ( is => 'ro', default => sub { HTTP::Tiny->new } );
 
 our $VERSION = 0.3;
 
@@ -28,26 +28,35 @@ sub load_source{
 
     my $options = $self->_config;
     
-    return '' unless $options->{name};
+    return if !$options->{name};
 
     my $name = $options->{name};
 
     # fetching the requested tutorial from metacpan
     $self->publisher->debug( "103: fetch tutorial $name" );
 
-    my $pod = LWP::Simple::get(
+    return $self->_get_pod( $name );
+}
+
+sub _get_pod {
+    my ($self,$name) = @_;
+
+    my $response = $self->ua->get(
         'http://perltuts.com/tutorials/' . $name . '?format=pod'
     );
 
-    my $regex = qr/<div \s+ id="content" \s+ class="row"> .*? not \s+ found/;
+use Data::Dumper;
+print STDERR Dumper( $response );
 
-    if ( !$pod || $pod =~ $regex ) { 
+    if ( $response !~ m{\A2} ) {
         $self->publisher->debug(
             "103: tutorial $name does not exist"
         );
+
         return;
     };
 
+    my $pod = $response->{content};
 
     # perltuts.com always provides utf-8 encoded data, so we have
     # to decode it otherwise the target plugins may produce garbage
@@ -83,6 +92,14 @@ sub load_source{
   my $source_options = { type => 'PerltutsCom', name => 'Moose' };
   my $url_source     = EPublisher::Source->new( $source_options );
   my $pod            = $url_source->load_source;
+
+=head1 ATTRIBUTES
+
+=over 4
+
+=item ua
+
+=back
 
 =head1 METHODS
 
