@@ -18,7 +18,7 @@ use parent qw( EPublisher::Source::Base );
 
 has ua => ( is => 'ro', default => sub { HTTP::Tiny->new } );
 
-our $VERSION = '0.4';
+our $VERSION = '0.5';
 
 # implementing the interface to EPublisher::Source::Base
 sub load_source{

@@ -1,7 +1,7 @@
 Changes for EPublisher::Source::Plugin::PerltutsCom
 ===================================================
 
-0.4  2019-02-24 19:24:00
+0.5  2019-02-24 19:24:00
 
     - update dist.ini
     - first step for reorganizing code
