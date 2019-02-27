@@ -46,7 +46,7 @@ sub _get_pod {
         'http://perltuts.com/tutorials/' . $name . '?format=pod'
     );
 
-    if ( $response !~ m{\A2} ) {
+    if ( $response->{status} !~ m{\A2} ) {
         $self->publisher->debug(
             "103: tutorial $name does not exist"
         );
@@ -84,7 +84,7 @@ sub _get_pod {
 }
 
 sub ua {
-    $UA //= HTTP::Tiny->new;
+    $UA = HTTP::Tiny->new if !$UA;
     $UA;
 }
 
