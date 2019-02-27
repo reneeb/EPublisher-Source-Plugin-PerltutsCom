@@ -16,7 +16,7 @@ use HTTP::Tiny;
 use parent qw( EPublisher::Source::Base );
 
 
-our $VERSION = '0.6_01';
+our $VERSION = '0.6_02';
 our $UA;
 
 # implementing the interface to EPublisher::Source::Base

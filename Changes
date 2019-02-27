@@ -1,6 +1,11 @@
 Changes for EPublisher::Source::Plugin::PerltutsCom
 ===================================================
 
+0.6_02 2019-02-27 19:57:00
+
+    - improve tests
+    - fix bug in _get_pod: Check the status, not the hashref ;-)
+
 0.6_01 2019-02-26 19:54:00
 
     - add tests
