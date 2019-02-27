@@ -7,6 +7,10 @@ use Test::More;
 
 use EPublisher::Source::Plugin::PerltutsCom;
 
+use File::Basename;
+use lib dirname __FILE__;
+use TestUA;
+
 my $error = '';
 
 {
@@ -41,6 +45,47 @@ my $error = '';
     $obj->publisher( MockEPublisher->new );
 
     my @pods = $obj->load_source;
+
+    # if tutorial does not exist I expect an empty array as return
+    is scalar @pods, 0, 'inexisting tutorial name';
+    like $error, qr"103: fetch tutorial PDL";
+}
+
+{
+    $error = '';
+
+    my $obj = EPublisher::Source::Plugin::PerltutsCom->new;
+    $obj->publisher( MockEPublisher->new );
+
+    my @pods = $obj->load_source( 'PDL' );
+
+    # if tutorial does not exist I expect an empty array as return
+    is scalar @pods, 0, 'inexisting tutorial name';
+    like $error, qr"103: fetch tutorial PDL";
+}
+
+{
+    local $EPublisher::Source::Plugin::PerltutsCom::UA = TestUA->new;
+
+    $error = '';
+
+    my $obj = EPublisher::Source::Plugin::PerltutsCom->new;
+    $obj->publisher( MockEPublisher->new );
+
+    my @pods = $obj->load_source( 'PDL' );
+
+    # if tutorial does not exist I expect an empty array as return
+    is scalar @pods, 0, 'inexisting tutorial name';
+    like $error, qr"103: fetch tutorial PDL";
+}
+
+{
+    $error = '';
+
+    my $obj = EPublisher::Source::Plugin::PerltutsCom->new;
+    $obj->publisher( MockEPublisher->new );
+
+    my @pods = $obj->load_source( 'PDL' );
 
     # if tutorial does not exist I expect an empty array as return
     is scalar @pods, 0, 'inexisting tutorial name';
