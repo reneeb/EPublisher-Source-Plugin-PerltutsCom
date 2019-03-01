@@ -1,6 +1,10 @@
 Changes for EPublisher::Source::Plugin::PerltutsCom
 ===================================================
 
+0.7  2019-03-01 08:41:00
+
+    - stable release with all changes from the test versions
+
 0.6_02 2019-02-27 19:57:00
 
     - improve tests
