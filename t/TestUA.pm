@@ -18,12 +18,32 @@ Connection: keep-alive
 Internal Server Error
 ~;
 
+     my $epublisher = q~HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Disposition: attachment; filename=epublisher.pod
+Server: nginx
+Content-Type: application/octet-stream
+Content-Length: 5632
+Set-Cookie: plack_session=1551107060.11834%3ABQoDAAAAAQoCZW4AAAAYdHVybmFyb3VuZC5pMThuLmxhbmd1YWdl%3A318133c1d65f272af9e793495f0eebb084ed2d66; path=/; expires=Mon, 25-Feb-2019 15:54:20 GMT
+Date: Mon, 25 Feb 2019 15:04:20 GMT
+
+=head1 NAME
+
+EPublisher
+~;
+
      my $pdl = do{ local $/; <DATA> };
 
-     my $response = $error;#( $url =~ m{pdl} ) ? $pdl : $error;
+     my $response = $error;
+     if ( $url =~ m{pdl}i ) {
+         $response = $pdl;
+     }
+     elsif ( $url =~ m{epublisher}i ) {
+         $response = $epublisher;
+     }
 
-     my ($header, $body)   = split /\n\n/, $response;
-     my ($status, $reason) = $header =~ m{HTTP/1\.1 \s+ ([0-9]+) \s+ ([^\n]+)};
+     my ($header, $body)   = split /\n\n/, $response, 2;
+     my ($status, $reason) = $header =~ m{HTTP/1\.1 \s+ ([0-9]+) \s+ ([^\n]+)}x;
 
      my $data = {
          status  => $status,
